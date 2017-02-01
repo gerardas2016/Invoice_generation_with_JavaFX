@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="account.view.CustomersViewController">
+   <center>
+      <TableView fx:id="tblClient" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="colID" prefWidth="54.0" text="ID" />
+          <TableColumn fx:id="colName" prefWidth="79.0" text="Name" />
+            <TableColumn fx:id="colCode" prefWidth="77.0" text="Code" />
+            <TableColumn fx:id="colAdress" prefWidth="90.0" text="Adress" />
+            <TableColumn fx:id="colCity" prefWidth="75.0" text="City" />
+            <TableColumn fx:id="colCountry" prefWidth="75.0" text="Country" />
+            <TableColumn fx:id="colPhone" prefWidth="75.0" text="Phone" />
+            <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
