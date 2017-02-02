@@ -15,7 +15,9 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.border.Border;
 import com.itextpdf.layout.element.Cell;
+import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.element.Text;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.VerticalAlignment;
 import java.io.File;
@@ -43,6 +45,9 @@ public class PdfFactory {
 
     InvoiceData buyerData;
     InvoiceData itemsData;
+    
+    
+    
 
     public void setBuyerData(InvoiceData data) {
         this.buyerData = data;
@@ -50,6 +55,7 @@ public class PdfFactory {
     
     public void setItemsData(InvoiceData data) {
         this.itemsData = data;
+        
     }
     
 
@@ -118,7 +124,7 @@ public class PdfFactory {
                 .setFontColor(Color.BLACK));
         table.addCell(new Cell().add(invoiceDate).setBorder(Border.NO_BORDER).
                 setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.BOTTOM));
-        table.addCell(new Cell().add("Dont forget input date").setBorder(Border.NO_BORDER).
+        table.addCell(new Cell().add(itemsData.getLocalDate()+" ").setBorder(Border.NO_BORDER).
                 setTextAlignment(TextAlignment.LEFT).setVerticalAlignment(VerticalAlignment.BOTTOM));
 
 //Second row Hand made+ invoice number
@@ -129,7 +135,7 @@ public class PdfFactory {
                 .setFontColor(Color.LIGHT_GRAY));
         table.addCell(new Cell().add(invoiceNumber).setBorder(Border.NO_BORDER).
                 setTextAlignment(TextAlignment.RIGHT).setVerticalAlignment(VerticalAlignment.TOP));
-        table.addCell(new Cell().add("Dont forget to import invoice DB").setBorder(Border.NO_BORDER).
+        table.addCell(new Cell().add(itemsData.getInvoiceNumber()+" ").setBorder(Border.NO_BORDER).
                 setTextAlignment(TextAlignment.LEFT));
 
         //Space width invoive nr ard seller- buer contact
@@ -151,9 +157,9 @@ public class PdfFactory {
                 .setBorder(Border.NO_BORDER).
                 setTextAlignment(TextAlignment.RIGHT)
                 .setFontSize(8));
-//        tableSeller.addCell(new Cell().add(data.getBuyerInfo2())
-//                .setBorder(Border.NO_BORDER).
-//                setFontSize(10));
+        tableSeller.addCell(new Cell().add(itemsData.getSellername())
+                .setBorder(Border.NO_BORDER).
+                setFontSize(10));
 
         //Buyer
         tableSeller.addCell(new Cell().add(buyerInfo)
@@ -201,12 +207,97 @@ public class PdfFactory {
             i++;
             
         }
+        
+ //Add total    
+ 
+ //Total exc Vat
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("Total (exc VAT)").setBackgroundColor(Color.LIGHT_GRAY));
+    tableOrder.addCell(new Cell().add( itemsData.getTotalPrice()+"").setBackgroundColor(Color.LIGHT_GRAY));
+    
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("VAT ("+itemsData.getVat()+")"));
+    tableOrder.addCell(new Cell().add(String.format("%.2f",itemsData.getVatsum()))); 
+    
+    
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+    tableOrder.addCell(new Cell().add("Total inc. VAT").setBackgroundColor(Color.LIGHT_GRAY));
+    tableOrder.addCell(new Cell().add(String.format("%.2f", itemsData.getTotalIncVat())+"").setBackgroundColor(Color.LIGHT_GRAY)); 
      
 
     
     return tableOrder;
     }
     
-    
+//     public Table createTableTotal(){
+//     
+//     
+//      tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("Total (exc VAT)").setBackgroundColor(Color.LIGHT_GRAY));
+//    tableOrder.addCell(new Cell().add(total.getTotalExcVat(items) +"").setBackgroundColor(Color.LIGHT_GRAY));
+//    
+//    
+//    if (total.getTotalEcvVatWithDiscount()!=0){
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("Total (exc VAT) with discount").setBackgroundColor(Color.LIGHT_GRAY));
+//    tableOrder.addCell(new Cell().add(total.getTotalEcvVatWithDiscount() +"").setBackgroundColor(Color.LIGHT_GRAY));
+//    
+//    
+//    
+//    }
+//        
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("VAT ("+total.getVat()+")"));
+//    tableOrder.addCell(new Cell().add(total.getVatSum()+"")); 
+//    
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("Total inc. VAT").setBackgroundColor(Color.LIGHT_GRAY));
+//    tableOrder.addCell(new Cell().add(String.format("%.2f", total.getTotalIncVat())+"").setBackgroundColor(Color.LIGHT_GRAY)); 
+//    
+//    
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("Excange Rate to Euros"));
+//    tableOrder.addCell(new Cell().add(total.getExcangeRateToEur()+"")); 
+//    
+//    
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("").setBorder(Border.NO_BORDER));
+//    tableOrder.addCell(new Cell().add("Total in Euros").setBackgroundColor(Color.LIGHT_GRAY));
+//    tableOrder.addCell(new Cell().add(String.format("%.2f",total.getTotalInEur())+"").setBackgroundColor(Color.LIGHT_GRAY)); 
+//
+//    
+//    
+//    PdfFont footerFont = PdfFontFactory.createFont(FontConstants.TIMES_ROMAN);
+//       Text footer= new Text (footerInfo.getWebSiteName());
+//       footer.setFontSize(8);
+//       document.add (new Paragraph(footer).setFixedPosition(50, 25 , ps.getWidth()));
+//       
+//      PdfFont footerFont1 = PdfFontFactory.createFont(FontConstants.TIMES_ROMAN);
+//      
+//       Text pageNumber= new Text (pdf.getPageNumber(page)+"");
+//       pageNumber.setFontSize(8);
+//       document.add (new Paragraph(pageNumber).setFixedPosition(ps.getWidth()-50, 25 , ps.getWidth()));
+//       
+//     
+//     
+//     return total;
+//     }
 
 }

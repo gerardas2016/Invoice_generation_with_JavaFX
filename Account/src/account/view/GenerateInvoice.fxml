@@ -57,7 +57,6 @@
             <TextField fx:id="fieldPhone" layoutY="301.0" promptText="Phone" />
             <TextField fx:id="fieldEmail" layoutY="333.0" promptText="Email" />
             <Text fx:id="lblInfo" fill="#e42626" layoutX="35.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Not found" />
-            <Button layoutX="36.0" layoutY="382.0" mnemonicParsing="false" onAction="#btnOkBuyer" text="Ok" />
          </children>
       </AnchorPane>
    </left>

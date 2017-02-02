@@ -215,19 +215,23 @@ public class GenerateInvoiceController implements Initializable {
 
     @FXML
     private void onClickProduct(MouseEvent event) {
-        //txtFieldItemName.setText(tblItem.getSelectionModel().getSelectedCells());
-
+        
+       
+        
         txtFieldItemName.setText(tblItem.getSelectionModel().getSelectedItem().getName());
         txtFieldItemSize.setText(tblItem.getSelectionModel().getSelectedItem().getSize());
         txtFieldItemColor.setText(tblItem.getSelectionModel().getSelectedItem().getColor());
         txtFieldItemDestripcion.setText(tblItem.getSelectionModel().getSelectedItem().getDescription());
         txtFieldItemPrice.setText("" + tblItem.getSelectionModel().getSelectedItem().getPrice());
-
+        
+  
     }
+    
+    
 
     @FXML
     private void onClickAddProduct(ActionEvent event) {
-
+ 
         //tblItemsForInvoice.getItems().clear();
         //Item selectedItem=   tblItem.getSelectionModel().getSelectedItem();
         Total_Items totalItem = new Total_Items();
@@ -272,8 +276,23 @@ public class GenerateInvoiceController implements Initializable {
         colInputTotal.setCellValueFactory((TableColumn.CellDataFeatures<Total_Items, Double> param) -> {
             return new ReadOnlyObjectWrapper<>(param.getValue().getTotal());
         });
+        
+        ClearProducttxtFields();
 
     }
+    
+        private void ClearProducttxtFields(){
+    txtFieldItemName.clear();
+    txtFieldItemSize.clear();
+    txtFieldItemColor.clear();
+    txtFieldItemDestripcion.clear();
+    txtFieldItemPrice.clear();
+    txtFieldItemQuantity.clear();
+    
+    }
+
+    
+    
 
     @FXML
     private void onClickGeneratePdfInvoice(ActionEvent event) throws IOException {
@@ -281,6 +300,7 @@ public class GenerateInvoiceController implements Initializable {
         // Sukurti  K objekta
        //InvoiceData invoiceData = setBuyerInfoToInvoice2();
        InvoiceData invoiceD = new InvoiceData();
+      // dataList.set
        // uzpidome objekto K reiksmes
        invoiceD.setBuyerInfo2(fieldName.getText(),
                 fieldCode.getText(),
@@ -289,7 +309,7 @@ public class GenerateInvoiceController implements Initializable {
                 fieldCountry.getText(),
                 fieldPhone.getText());
        
-        System.out.println(invoiceD.toString());
+        //System.out.println(invoiceD.toString());
         // perduoti ji i PDF klase
        // PdfFactory pdfFactory = new PdfFactory(invoiceD);
        
@@ -317,11 +337,10 @@ public class GenerateInvoiceController implements Initializable {
         return invoiceData;
     }
 
-    @FXML
-    private void btnOkBuyer(ActionEvent event) {
-        System.out.println(fieldCity.getText());
-        //invoiceData.setBuyerInfo2(fieldName.getText(),fieldCode.getText(),fieldAdress.getText(),fieldCity.getText(),fieldCountry.getText(), fieldPhone.getText());
-        BuyerInfo buyerInfo = new BuyerInfo(fieldName.getText(), fieldCode.getText(), fieldAdress.getText(), fieldCity.getText(), fieldCountry.getText(), fieldPhone.getText());
-
+   
+    
+    private void TotalPrice(){
+    dataList.getItemsList();
+    
     }
 }
