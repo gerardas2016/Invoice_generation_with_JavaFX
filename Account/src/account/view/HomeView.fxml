@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="account.view.HomeViewController">
+<BorderPane styleClass="background" stylesheets="@../resources/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="account.view.HomeViewController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -35,7 +35,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <HBox spacing="10.0">
+            <HBox spacing="10.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button fx:id="createInvoiceBtn" mnemonicParsing="false" onAction="#onClickCreateInvoice" text="Create an Invoice">
                      <graphic>
@@ -103,6 +103,6 @@
       </VBox>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <AnchorPane prefHeight="600.0" prefWidth="1100.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

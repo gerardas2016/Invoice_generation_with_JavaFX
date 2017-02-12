@@ -49,21 +49,7 @@ public class HomeViewController implements Initializable {
 
     @FXML
     private void onClickCostumersDB(ActionEvent event) throws IOException {
-//    
 
-//if(mainLayout != null){
-//       System.out.println("Main Layoutas egzistuoja"); 
-//    }else{
-//        System.out.println("Main Layoutas NEEGZISTUOJA");
-//}
-
-
-//       FXMLLoader loaderMenu= new FXMLLoader();
-//       loaderMenu.setLocation(Account.class.getResource("view/LeftMenu.fxml"));
-//     
-//
-//       BorderPane leftMenu=(BorderPane)loaderMenu.load();
-//       mainLayout.setLeft(leftMenu);
        
         
        FXMLLoader loader= new FXMLLoader();

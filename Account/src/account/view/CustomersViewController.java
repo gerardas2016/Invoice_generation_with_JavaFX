@@ -5,17 +5,19 @@
  */
 package account.view;
 
-
 import model.beans.Client;
 import java.net.URL;
-import java.util.ArrayList;
+
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import model.DataBaseImport;
+import model.DataBaseInjection;
 
 /**
  * FXML Controller class
@@ -23,7 +25,7 @@ import model.DataBaseImport;
  * @author Gepardas
  */
 public class CustomersViewController implements Initializable {
-    
+
     Client client = new Client();
 
     @FXML
@@ -44,32 +46,48 @@ public class CustomersViewController implements Initializable {
     private TableColumn<Client, String> colPhone;
     @FXML
     private TableColumn<Client, String> colEmail;
+    
+    //Text Fields for new Client input
+    @FXML
+    private TextField txtFieldClientName;
+    @FXML
+    private TextField txtFieldClientCode;
+    @FXML
+    private TextField txtFieldClientAdress;
+    @FXML
+    private TextField txtFieldClientCountry;
+    @FXML
+    private TextField txtFieldClientCity;
+    @FXML
+    private TextField txtFieldClientEmail;
+    @FXML
+    private TextField txtFieldClientPhone;
 
-  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         updateTableView();
-    }    
-    
-    
-     private void updateTableView( ) {
+       
+    }
+
+    private void updateTableView() {
 //Insert into table values from Object Client which imports from Database import
         tblClient.getItems().clear();
         tblClient.getItems().addAll(new DataBaseImport().GetClientData());
+        tblClient.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-         colID.setCellValueFactory((TableColumn.CellDataFeatures<Client, Long> param) -> {
+        colID.setCellValueFactory((TableColumn.CellDataFeatures<Client, Long> param) -> {
             return new ReadOnlyObjectWrapper<>(param.getValue().getID());
         });
 
         colName.setCellValueFactory((TableColumn.CellDataFeatures<Client, String> param) -> {
             return new ReadOnlyObjectWrapper<>(param.getValue().getName());
         });
-        
+
         colCode.setCellValueFactory((TableColumn.CellDataFeatures<Client, Long> param) -> {
             return new ReadOnlyObjectWrapper<>(param.getValue().getCode());
         });
-        
+
         colAdress.setCellValueFactory((TableColumn.CellDataFeatures<Client, String> param) -> {
             return new ReadOnlyObjectWrapper<>(param.getValue().getAdress());
         });
@@ -85,9 +103,45 @@ public class CustomersViewController implements Initializable {
         colEmail.setCellValueFactory((TableColumn.CellDataFeatures<Client, String> param) -> {
             return new ReadOnlyObjectWrapper<>(param.getValue().getEmail());
         });
-        
-        
-        
 
     }
+
+    @FXML
+    private void onClickAddToClientDatabase(ActionEvent event) {
+        
+        DataBaseInjection dataBaseInjection= new DataBaseInjection(txtFieldClientName.getText(),
+                txtFieldClientCode.getText(),
+                txtFieldClientAdress.getText(),
+                txtFieldClientCity.getText(),
+                txtFieldClientCountry.getText(),
+                txtFieldClientPhone.getText(),
+                txtFieldClientEmail.getText());
+        
+        dataBaseInjection.addClient();
+       
+         updateTableView();
+         
+         
+         
+         
+         //clearFields();
+         
+         
+    }
+    private void clearFields(){
+    txtFieldClientName.clear();
+    txtFieldClientCode.clear();
+    txtFieldClientAdress.clear();
+    txtFieldClientCity.clear();
+    txtFieldClientCountry.clear();
+    txtFieldClientPhone.clear();
+    txtFieldClientEmail.clear();
+    
+    
+    
+    
+    
+    
+    }
+    
 }
